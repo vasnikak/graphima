@@ -1,7 +1,7 @@
-/*
- * Copyright (C) 2019, Vasileios Nikakis
+/**
+ * Copyright (C) 2019, by Vasileios Nikakis
  *
- * graphima : yet another Java graph-theory library
+ * graphima: yet another Java graph-theory library
  */
 package com.sitienda.graphima.path;
 
