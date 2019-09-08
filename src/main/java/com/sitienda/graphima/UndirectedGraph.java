@@ -58,6 +58,17 @@ public class UndirectedGraph<V> extends Graph<V> {
      * {@inheritDoc}
      */
     @Override
+    public Graph<V> removeEdge(Vertex<V> vertex1, Vertex<V> vertex2) { 
+        // Both edges have to be removed
+        vertex1.removeEdgeWith(vertex2);
+        vertex2.removeEdgeWith(vertex1);
+        return this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Graph<V> removeEdge(V vertexData1, V vertexData2) { 
         Vertex<V> vertex1 = getVertexWithData(vertexData1);
         if (vertex1 == null)
@@ -65,10 +76,7 @@ public class UndirectedGraph<V> extends Graph<V> {
         Vertex<V> vertex2 = getVertexWithData(vertexData2);
         if (vertex2 == null)
             return this;
-        // Both edges have to be removed
-        vertex1.removeEdgeWith(vertex2);
-        vertex2.removeEdgeWith(vertex1);
-        return this;
+        return removeEdge(vertex1,vertex2);
     }
     
 }
