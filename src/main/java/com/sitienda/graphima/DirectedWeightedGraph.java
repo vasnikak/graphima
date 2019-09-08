@@ -92,6 +92,15 @@ public class DirectedWeightedGraph<V> extends WeightedGraph<V> {
      * {@inheritDoc}
      */
     @Override
+    public Graph<V> removeEdge(Vertex<V> vertex1, Vertex<V> vertex2) { 
+        vertex1.removeEdgeWith(vertex2);
+        return this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Graph<V> removeEdge(V vertexData1, V vertexData2) { 
         Vertex<V> vertex1 = getVertexWithData(vertexData1);
         if (vertex1 == null)
@@ -99,8 +108,7 @@ public class DirectedWeightedGraph<V> extends WeightedGraph<V> {
         Vertex<V> vertex2 = getVertexWithData(vertexData2);
         if (vertex2 == null)
             return this;
-        vertex1.removeEdgeWith(vertex2);
-        return this;
+        return removeEdge(vertex1,vertex2);
     }
     
 }
