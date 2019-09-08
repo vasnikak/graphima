@@ -68,7 +68,7 @@ public class WeightedEdge<V extends Vertex> extends Edge<V> {
      */
     @Override
     public String toString() { 
-        return "WeighteEdge<" + vertex + ", weight: " + weight + ">";
+        return "WeightedEdge<" + vertex + ", weight: " + weight + ">";
     }
     
 }
