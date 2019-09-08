@@ -51,6 +51,25 @@ public class UndirectedWeightedGraph<V> extends WeightedGraph<V> {
      * {@inheritDoc}
      */
     @Override
+    public Graph<V> addEdge(Vertex<V> vertex1, Vertex<V> vertex2) { 
+        return addEdge(vertex1,vertex2,DEFAULT_WEIGHT);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public WeightedGraph<V> addEdge(Vertex<V> vertex1, Vertex<V> vertex2, int weight) { 
+        // Two edges have to be added
+        vertex1.addEdge(new WeightedEdge<>(vertex2,weight));
+        vertex2.addEdge(new WeightedEdge<>(vertex1,weight));
+        return this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Graph<V> addEdge(V vertexData1, V vertexData2) { 
         return addEdge(vertexData1,vertexData2,DEFAULT_WEIGHT);
     }
@@ -66,10 +85,7 @@ public class UndirectedWeightedGraph<V> extends WeightedGraph<V> {
         Vertex<V> vertex2 = getVertexWithData(vertexData2);
         if (vertex2 == null)
             return this;
-        // Two edges have to be added
-        vertex1.addEdge(new WeightedEdge<>(vertex2,weight));
-        vertex2.addEdge(new WeightedEdge<>(vertex1,weight));
-        return this;
+        return addEdge(vertex1,vertex2,weight);
     }
     
     /**
