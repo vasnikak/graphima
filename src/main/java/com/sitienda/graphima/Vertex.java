@@ -5,6 +5,7 @@
  */
 package com.sitienda.graphima;
 
+import com.sitienda.graphima.exceptions.VertexNullPointerException;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -27,10 +28,15 @@ public class Vertex<T> {
     private final HashSet<Edge> edges;
     
     /**
+     * Constructor
      * 
      * @param data the contained object. 
+     * 
+     * @throws VertexNullPointerException if the data is null
      */
-    public Vertex(T data) { 
+    public Vertex(T data) throws VertexNullPointerException { 
+        if (data == null)
+            throw new VertexNullPointerException("The vertex cannot contain null as data");
         this.data = data;
         edges = new HashSet<>();
     }
@@ -159,27 +165,32 @@ public class Vertex<T> {
         return "Vertex<" + data + ">";
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.data);
+        return hash;
+    }
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        }
+        if (obj == null) {
             return false;
-        final Vertex<T> other = (Vertex<T>) obj;
-        return data.equals(other.data);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.data);
-        return hash;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Vertex<?> other = (Vertex<?>) obj;
+        if (!Objects.equals(this.data, other.data)) {
+            return false;
+        }
+        return true;
     }
     
 }
