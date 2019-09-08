@@ -11,16 +11,18 @@ import com.sitienda.graphima.exceptions.GraphIOException;
 /**
  * The base class for each graph file writer.
  * 
+ * @param <V> the type of objects that the graph contains
+ * 
  * @author Vasileios Nikakis
  */
-public abstract class GraphFileWriter extends GraphWriter {
+public abstract class GraphFileWriter<V> extends GraphWriter<V> {
     
     /**
      * Constructor
      * 
      * @param graph the graph
      */
-    public GraphFileWriter(Graph<?> graph) {
+    public GraphFileWriter(Graph<V> graph) {
         super(graph);
     }
     
