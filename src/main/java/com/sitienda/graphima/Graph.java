@@ -199,6 +199,16 @@ public abstract class Graph<V> {
     }
     
     /**
+     * Adds an edge between two vertices by supplying the corresponding vertices.
+     * 
+     * @param vertex1 the first vertex
+     * @param vertex2 the second vertex
+     * 
+     * @return the graph
+     */
+    public abstract Graph<V> addEdge(Vertex<V> vertex1, Vertex<V> vertex2);
+    
+    /**
      * Adds an edge between two vertices by supplying the corresponding data objects.
      * 
      * @param vertexData1 the data object of the first vertex
