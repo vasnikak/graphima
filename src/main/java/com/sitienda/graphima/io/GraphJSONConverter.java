@@ -5,11 +5,9 @@
  */
 package com.sitienda.graphima.io;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
-import com.google.gson.reflect.TypeToken;
 import com.sitienda.graphima.DirectedGraph;
 import com.sitienda.graphima.DirectedWeightedGraph;
 import com.sitienda.graphima.Edge;
@@ -21,8 +19,6 @@ import com.sitienda.graphima.WeightedEdge;
 import com.sitienda.graphima.WeightedGraph;
 import com.sitienda.graphima.exceptions.GraphDataMissingException;
 import com.sitienda.graphima.exceptions.VertexNotInGraphException;
-import com.sitienda.graphima.exec.Student;
-import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
