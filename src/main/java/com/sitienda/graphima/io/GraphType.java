@@ -16,7 +16,9 @@ import com.sitienda.graphima.UndirectedWeightedGraph;
  */
 public final class GraphType {
     
-    // Graph types
+    /**
+     * Graph types
+     */
     public enum Type { 
         UNDIRECTED_GRAPH,
         UNDIRECTED_WEIGHTED_GRAPH,
