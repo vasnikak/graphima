@@ -33,6 +33,17 @@ public class UndirectedGraph<V> extends Graph<V> {
      * {@inheritDoc}
      */
     @Override
+    public Graph<V> addEdge(Vertex<V> vertex1, Vertex<V> vertex2) { 
+        // Two edges have to be added
+        vertex1.addEdge(new Edge<>(vertex2));
+        vertex2.addEdge(new Edge<>(vertex1));
+        return this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Graph<V> addEdge(V vertexData1, V vertexData2) { 
         Vertex<V> vertex1 = getVertexWithData(vertexData1);
         if (vertex1 == null)
@@ -40,10 +51,7 @@ public class UndirectedGraph<V> extends Graph<V> {
         Vertex<V> vertex2 = getVertexWithData(vertexData2);
         if (vertex2 == null)
             return this;
-        // Two edges have to be added
-        vertex1.addEdge(new Edge<>(vertex2));
-        vertex2.addEdge(new Edge<>(vertex1));
-        return this;
+        return addEdge(vertex1,vertex2);
     }
     
     /**
