@@ -13,14 +13,15 @@ package com.sitienda.graphima.exceptions;
 public class VertexNotInGraphException extends Exception {
     
     /**
-     * Constructor.
+     * Constructor
      */
     public VertexNotInGraphException() {
         super("The graph doesn't contain this vertex");
     }
 
     /**
-     * Constructor.
+     * Constructor
+     * 
      * @param string The exception message.
      */
     public VertexNotInGraphException(String string) {
