@@ -5,12 +5,10 @@
  */
 package com.sitienda.graphima.io;
 
-import com.sitienda.graphima.Graph;
-
 /**
  * The base class for each graph reader.
  *
- * @param <V> the type of the objects that are encapsulated in each graph vertex
+ * @param <V> the type of the objects that the graph contains
  * 
  * @author Vasileios Nikakis
  */
