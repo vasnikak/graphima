@@ -219,6 +219,16 @@ public abstract class Graph<V> {
     public abstract Graph<V> addEdge(V vertexData1, V vertexData2);
     
     /**
+     * Removes an edge between two vertices by supplying the corresponding vertices.
+     * 
+     * @param vertex1 the first vertex
+     * @param vertex2 the second vertex
+     * 
+     * @return the graph
+     */
+    public abstract Graph<V> removeEdge(Vertex<V> vertex1, Vertex<V> vertex2);
+    
+    /**
      * Removes an edge between two vertices by supplying the corresponding data objects.
      * 
      * @param vertexData1 the data object of the first vertex
@@ -321,9 +331,23 @@ public abstract class Graph<V> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Graph<?> other = (Graph<?>) obj;
-        if (!Objects.equals(this.vertices, other.vertices)) {
+        final Graph<V> otherGraph = (Graph<V>) obj;
+        // Check the vertices and the corresponding edges
+        if (size() != otherGraph.size())
             return false;
+        for (Vertex<V> vertex : vertices) { 
+            Object otherVertexSearch = otherGraph.getVertexWithData(vertex.getData());
+            if (otherVertexSearch == null)
+                return false;
+            Vertex<V> otherVertex = (Vertex<V>) otherVertexSearch;
+            if (vertex.getEdges().size() != otherVertex.getEdges().size())
+                return false;
+            for (Edge<Vertex<V>> edge : vertex.getEdges()) { 
+                Edge<Vertex<V>> otherEdge = otherVertex.getEdgeWith(edge.getVertex());
+                if (this instanceof WeightedGraph && 
+                    ((WeightedEdge) edge).getWeight() != ((WeightedEdge) otherEdge).getWeight())
+                    return false;
+            }
         }
         return true;
     }
