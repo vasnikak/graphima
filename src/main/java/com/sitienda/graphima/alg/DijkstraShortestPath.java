@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 /**
- * A* algorithm. 
+ * Dijkstra algorithm. 
  * It discovers the shortest paths in a graph between a source vertex and
  * all the rest.
  *
