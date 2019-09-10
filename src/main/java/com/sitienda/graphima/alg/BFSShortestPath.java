@@ -64,6 +64,7 @@ public class BFSShortestPath<V> extends GraphAlgorithm<V> {
     public BFSShortestPath(Graph<V> graph) {
         super(graph);
         collisionComp = null;
+        execStats = new FindPathAlgorithmExecutionStats("BFS shortest path");
     }
     
     /**
@@ -75,6 +76,7 @@ public class BFSShortestPath<V> extends GraphAlgorithm<V> {
     public BFSShortestPath(Graph<V> graph, NodeComparator<V> collisionComp) {
         super(graph);
         this.collisionComp = collisionComp;
+        execStats = new FindPathAlgorithmExecutionStats("BFS shortest path");
     }
     
     /**
@@ -95,7 +97,6 @@ public class BFSShortestPath<V> extends GraphAlgorithm<V> {
             throw new VertexNotInGraphException("The ending point vertex (" + end + ") doesn't exist in the graph");
         
         // Exec stats
-        execStats.setAlgorithmName("BFS shortest path");
         execStats.reset();
         
         // We need a queue to store the nodes that wait to be examined
@@ -107,6 +108,8 @@ public class BFSShortestPath<V> extends GraphAlgorithm<V> {
         QueueItem<Vertex<V>> first = new QueueItem<>(start,null);
         queue.add(first);
         visited.put(start,first);
+        // Exec stats
+        execStats.incNodesVisitedNum();
         // We will assign the destination queue item to this variable
         QueueItem<Vertex<V>> target = null;
         // While the queue is not empty
@@ -168,7 +171,8 @@ public class BFSShortestPath<V> extends GraphAlgorithm<V> {
         }
         // Exec stats
         execStats.stopExecution();
-        execStats.setPathLength(path.size());
+        ((FindPathAlgorithmExecutionStats) execStats).setSolutionFound(target != null);
+        ((FindPathAlgorithmExecutionStats) execStats).setPathLength(path.size());
         // Return the path
         return path;
     }
