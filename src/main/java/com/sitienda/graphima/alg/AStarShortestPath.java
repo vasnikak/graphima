@@ -74,7 +74,7 @@ public class AStarShortestPath<V> extends GraphAlgorithm<V> {
         super(graph);
         collisionComp = null;
         heuristicFunc = new ZeroHeuristicFunction<>();
-        execStats.setAlgorithmName("A* shortest path");
+        execStats = new FindPathAlgorithmExecutionStats("A* shortest path");
     }
     
     /**
@@ -87,7 +87,7 @@ public class AStarShortestPath<V> extends GraphAlgorithm<V> {
         super(graph);
         this.collisionComp = collisionComp;
         heuristicFunc = new ZeroHeuristicFunction<>();
-        execStats.setAlgorithmName("A* shortest path");
+        execStats = new FindPathAlgorithmExecutionStats("A* shortest path");
     }
     
     /**
@@ -100,7 +100,7 @@ public class AStarShortestPath<V> extends GraphAlgorithm<V> {
         super(graph);
         collisionComp = null;
         this.heuristicFunc = heuristicFunc;
-        execStats.setAlgorithmName("A* shortest path");
+        execStats = new FindPathAlgorithmExecutionStats("A* shortest path");
     }
     
     /**
@@ -116,7 +116,7 @@ public class AStarShortestPath<V> extends GraphAlgorithm<V> {
         super(graph);
         this.collisionComp = collisionComp;
         this.heuristicFunc = heuristicFunc;
-        execStats.setAlgorithmName("A* shortest path");
+        execStats = new FindPathAlgorithmExecutionStats("A* shortest path");
     }
     
     /**
@@ -156,6 +156,8 @@ public class AStarShortestPath<V> extends GraphAlgorithm<V> {
         QueueItem<Vertex<V>> first = new QueueItem<>(start,null,0);
         queue.add(first);
         visited.put(start,first);
+        // Exec stats
+        execStats.incNodesVisitedNum();
         // We will assign the destination queue item to this variable
         QueueItem<Vertex<V>> target = null;
         // While the queue is not empty
@@ -203,7 +205,8 @@ public class AStarShortestPath<V> extends GraphAlgorithm<V> {
         }
         // Exec stats
         execStats.stopExecution();
-        execStats.setPathLength(path.size());
+        ((FindPathAlgorithmExecutionStats) execStats).setSolutionFound(target != null);
+        ((FindPathAlgorithmExecutionStats) execStats).setPathLength(path.size());
         // Return the path
         return path;
     }
