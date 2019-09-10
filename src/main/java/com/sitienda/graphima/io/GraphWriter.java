@@ -6,28 +6,24 @@
 package com.sitienda.graphima.io;
 
 import com.sitienda.graphima.Graph;
+import com.sitienda.graphima.exceptions.GraphIOException;
 
 /**
- * The base class for each graph writer.
+ * The base interface for each graph writer.
  * 
  * @param <V> the type of objects that the graph contains
  * 
  * @author Vasileios Nikakis
  */
-public abstract class GraphWriter<V> {
+public interface GraphWriter<V> {
     
     /**
-     * The graph.
-     */
-    protected final Graph<V> graph;
-    
-    /**
-     * Constructor
+     * Writes the graph to an underlying structure.
      * 
      * @param graph the graph
+     * 
+     * @throws GraphIOException in case of any error
      */
-    public GraphWriter(Graph<V> graph) { 
-        this.graph = graph;
-    }
+    public void write(Graph<V> graph) throws GraphIOException;
     
 }
