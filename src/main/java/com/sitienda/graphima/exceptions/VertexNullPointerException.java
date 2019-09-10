@@ -22,7 +22,7 @@ public class VertexNullPointerException extends RuntimeException {
     /**
      * Constructor
      * 
-     * @param string The exception message.
+     * @param string The exception message
      */
     public VertexNullPointerException(String string) {
         super(string);
