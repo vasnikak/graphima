@@ -14,18 +14,18 @@ import com.sitienda.graphima.alg.heuristics.ZeroHeuristicFunction;
  * It discovers the shortest path in a graph between two vertices using the
  * UCS algorithm.
  *
- * @param <T> the type of the objects that the graph contains
+ * @param <V> the type of the objects that the graph contains
  * 
  * @author Vasileios Nikakis
  */
-public class UCSShortestPath<T> extends AStarShortestPath<T> {
+public class UCSShortestPath<V> extends AStarShortestPath<V> {
     
     /**
      * Constructor
      * 
      * @param graph the graph
      */
-    public UCSShortestPath(Graph graph) {
+    public UCSShortestPath(Graph<V> graph) {
         super(graph);
         heuristicFunc = new ZeroHeuristicFunction<>();
         execStats.setAlgorithmName("UCS shortest path");
@@ -37,7 +37,7 @@ public class UCSShortestPath<T> extends AStarShortestPath<T> {
      * @param graph the graph
      * @param collisionComp the vertex comparator to resolve any collisions
      */
-    public UCSShortestPath(Graph graph, NodeComparator<Vertex<T>> collisionComp) {
+    public UCSShortestPath(Graph<V> graph, NodeComparator<Vertex<V>> collisionComp) {
         super(graph,collisionComp);
         heuristicFunc = new ZeroHeuristicFunction<>();
         execStats.setAlgorithmName("UCS shortest path");
