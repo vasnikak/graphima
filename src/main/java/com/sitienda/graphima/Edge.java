@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @author Vasileios Nikakis
  */
-public class Edge<V extends Vertex> {
+public class Edge<V extends Vertex<?>> {
     
     /**
      * The link to the vertex.
