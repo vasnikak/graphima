@@ -24,30 +24,37 @@ public class GraphJSONWriter<V> extends GraphFileWriter<V> {
     /**
      * Constructor
      * 
-     * @param graph the graph
+     * @param filepath the output file path
      */
-    public GraphJSONWriter(Graph<V> graph) {
-        super(graph);
+    public GraphJSONWriter(String filepath) {
+        super(filepath);
     }
 
     /**
-     * Exports the graph to a JSON file.
+     * Exports a graph to a JSON file.
      * 
-     * @param filepath the path of the export file
+     * @param graph the graph
      * 
-     * @throws GraphIOException if any IO error occurs.
+     * @throws GraphIOException in case of any error
      */
     @Override
-    public void writeFile(String filepath) throws GraphIOException {
+    public void write(Graph<V> graph) throws GraphIOException {
         try { 
             // Get the JSON representation of the graph
             GraphJSONConverter<V> jsonConverter = 
                     new GraphJSONConverter<>(Arrays.asList(GraphJSONConverter.Feature.PRETTY_PRINT));
             String json = jsonConverter.toJson(graph);
             // Write the data to the output file
-            BufferedWriter out = new BufferedWriter(new FileWriter(filepath));
-            out.write(json + "\n");
-            out.close();
+            BufferedWriter out = null;
+            try { 
+                out = new BufferedWriter(new FileWriter(filepath));
+                out.write(json + "\n");
+            }
+            finally { 
+                if (out != null) { 
+                    try { out.close(); } catch (IOException e) { }
+                }
+            }
         }
         catch (IOException e) { 
             throw new GraphIOException(e.getMessage());
