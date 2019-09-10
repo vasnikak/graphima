@@ -8,11 +8,11 @@ package com.sitienda.graphima.alg.heuristics;
 /**
  * Zero heuristic function - it always returns 0.
  *
- * @param <T> the type of the object where the heuristic function will be applied on
+ * @param <V> the type of the object where the heuristic function will be applied on
  *
  * @author Vasileios Nikakis
  */
-public class ZeroHeuristicFunction<T> implements HeuristicFunction<T> {
+public class ZeroHeuristicFunction<V> implements HeuristicFunction<V> {
     
     /**
      * The heuristic function - it always returns 0.
@@ -22,7 +22,7 @@ public class ZeroHeuristicFunction<T> implements HeuristicFunction<T> {
      * @return the heuristic value.
      */
     @Override
-    public int h(T obj) { 
+    public int h(V obj) { 
         return 0;
     }
     
