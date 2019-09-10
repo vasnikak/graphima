@@ -22,7 +22,7 @@ public class GraphDataMissingException extends Exception {
     /**
      * Constructor
      * 
-     * @param string The exception message.
+     * @param string The exception message
      */
     public GraphDataMissingException(String string) {
         super(string);
