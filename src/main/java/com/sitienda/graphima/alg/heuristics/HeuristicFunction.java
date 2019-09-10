@@ -8,11 +8,11 @@ package com.sitienda.graphima.alg.heuristics;
 /**
  * Heuristic function
  *
- * @param <T> the type of the objects that the graph contains
+ * @param <V> the type of the objects that the graph contains
  *
  * @author Vasileios Nikakis
  */
-public interface HeuristicFunction<T> {
+public interface HeuristicFunction<V> {
     
     /**
      * The heuristic function.
@@ -21,6 +21,6 @@ public interface HeuristicFunction<T> {
      * 
      * @return the heuristic value.
      */
-    public abstract int h(T obj);
+    public abstract int h(V obj);
     
 }
