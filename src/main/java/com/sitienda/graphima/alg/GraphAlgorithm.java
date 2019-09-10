@@ -10,16 +10,16 @@ import com.sitienda.graphima.Graph;
 /**
  * The base class for all graph algorithms.
  *
- * @param <T> the type of the objects that the graph contains
+ * @param <V> the type of the objects that the graph contains
  * 
  * @author Vasileios Nikakis
  */
-public abstract class GraphAlgorithm<T> {
+public abstract class GraphAlgorithm<V> {
     
     /**
      * The graph.
      */
-    protected Graph<T> graph;
+    protected Graph<V> graph;
     /**
      * Algorithm execution statistics.
      */
@@ -30,9 +30,8 @@ public abstract class GraphAlgorithm<T> {
      * 
      * @param graph the graph
      */
-    public GraphAlgorithm(Graph<T> graph) { 
+    public GraphAlgorithm(Graph<V> graph) { 
         this.graph = graph;
-        execStats = new AlgorithmExecutionStats();
     }
     
     /**
