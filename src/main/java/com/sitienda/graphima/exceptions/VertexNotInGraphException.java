@@ -22,7 +22,7 @@ public class VertexNotInGraphException extends Exception {
     /**
      * Constructor
      * 
-     * @param string The exception message.
+     * @param string The exception message
      */
     public VertexNotInGraphException(String string) {
         super(string);
