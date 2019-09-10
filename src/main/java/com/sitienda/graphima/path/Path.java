@@ -19,7 +19,7 @@ import java.util.Objects;
  * to exist between them.
  * </p>
  *
- * @param <V> the type of each vertex
+ * @param <V> the vertex type
  *
  * @author Vasileios Nikakis
  */
@@ -42,7 +42,7 @@ public class Path<V extends Vertex> {
      * 
      * @param nodes the corresponding vertices
      */
-    public <T> Path(List<V> nodes) { 
+    public Path(List<V> nodes) { 
         path = new LinkedList<>();
         for (V node : nodes)
             path.add(node);
@@ -109,6 +109,31 @@ public class Path<V extends Vertex> {
         return this;
     }
     
+    /**
+     * Checks if the path starts with a specific node.
+     * 
+     * @param node the node
+     * 
+     * @return true or false
+     */
+    public boolean startsWith(V node) { 
+        return (!path.isEmpty() && path.get(0).equals(node));
+    }
+    
+    /**
+     * Checks if the path ends with a specific node.
+     * 
+     * @param node the node
+     * 
+     * @return true or false
+     */
+    public boolean endsWith(V node) { 
+        return (!path.isEmpty() && path.get(path.size()-1).equals(node));
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() { 
         String str = "";
@@ -123,6 +148,9 @@ public class Path<V extends Vertex> {
         return str;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -130,6 +158,9 @@ public class Path<V extends Vertex> {
         return hash;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
