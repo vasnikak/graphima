@@ -8,7 +8,7 @@ package com.sitienda.graphima.alg;
 /**
  * Execution statistics for the execution of each graph algorithm.
  * 
- * @author comocomo
+ * @author Vasileios Nikakis
  */
 public class AlgorithmExecutionStats {
     
@@ -28,10 +28,6 @@ public class AlgorithmExecutionStats {
      * Number of the vertices that the algorithm visited.
      */
     private int nodesVisitedNum;
-    /**
-     * Path's length (find path algorithms).
-     */
-    private int pathLength;
     
     /**
      * Constructor
@@ -57,7 +53,6 @@ public class AlgorithmExecutionStats {
         execStart = System.currentTimeMillis();
         execTime = 0;
         nodesVisitedNum = 0;
-        pathLength = 0;
     }
 
     /**
@@ -129,22 +124,6 @@ public class AlgorithmExecutionStats {
     }
     
     /**
-     * 
-     * @return path's length (in case of path search algorithms)
-     */
-    public int getPathLength() {
-        return pathLength;
-    }
-
-    /**
-     * 
-     * @param pathLength path's length (in case of path search algorithms)
-     */
-    public void setPathLength(int pathLength) {
-        this.pathLength = pathLength;
-    }
-    
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -153,10 +132,8 @@ public class AlgorithmExecutionStats {
         if (algorithmName != null)
             str += " for " + algorithmName;
         str += ":\n";
-        str += "Nodes visited: " + nodesVisitedNum + "\n";
-        if (pathLength > 0)
-            str += "Path length: " + pathLength + "\n";
         str += "Execution time: " + getExectimeReadableFormat() + "\n";
+        str += "Nodes visited: " + nodesVisitedNum + "\n";
         return str;
     }
     
