@@ -5,9 +5,6 @@
  */
 package com.sitienda.graphima.io;
 
-import com.sitienda.graphima.Graph;
-import com.sitienda.graphima.exceptions.GraphIOException;
-
 /**
  * The base class for each graph file writer.
  * 
@@ -15,24 +12,20 @@ import com.sitienda.graphima.exceptions.GraphIOException;
  * 
  * @author Vasileios Nikakis
  */
-public abstract class GraphFileWriter<V> extends GraphWriter<V> {
+public abstract class GraphFileWriter<V> implements GraphWriter<V> {
     
+    /**
+     * The output file path
+     */
+     protected final String filepath;
+
     /**
      * Constructor
      * 
-     * @param graph the graph
+     * @param filepath the output file path
      */
-    public GraphFileWriter(Graph<V> graph) {
-        super(graph);
+    public GraphFileWriter(String filepath) {
+        this.filepath = filepath;
     }
-    
-    /**
-     * Exports the graph to a file.
-     * 
-     * @param filepath the path of the export file
-     * 
-     * @throws GraphIOException if any IO error occurs
-     */
-    public abstract void writeFile(String filepath) throws GraphIOException;
     
 }
