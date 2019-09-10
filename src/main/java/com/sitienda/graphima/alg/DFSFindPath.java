@@ -64,6 +64,7 @@ public class DFSFindPath<V> extends GraphAlgorithm<V> {
     public DFSFindPath(Graph<V> graph) {
         super(graph);
         collisionComp = null;
+        execStats = new FindPathAlgorithmExecutionStats("DFS find path");
     }
     
     /**
@@ -75,6 +76,7 @@ public class DFSFindPath<V> extends GraphAlgorithm<V> {
     public DFSFindPath(Graph<V> graph, NodeComparator<V> collisionComp) {
         super(graph);
         this.collisionComp = collisionComp;
+        execStats = new FindPathAlgorithmExecutionStats("DFS find path");
     }
     
     /**
@@ -95,7 +97,6 @@ public class DFSFindPath<V> extends GraphAlgorithm<V> {
             throw new VertexNotInGraphException("The ending point vertex (" + end + ") doesn't exist in the graph");
         
         // Exec stats
-        execStats.setAlgorithmName("DFS find path");
         execStats.reset();
         
         // We need a stack to store the nodes that wait to be examined
@@ -107,6 +108,8 @@ public class DFSFindPath<V> extends GraphAlgorithm<V> {
         StackItem<Vertex<V>> first = new StackItem<>(start,null);
         stack.push(first);
         visited.put(start,first);
+        // Exec stats
+        execStats.incNodesVisitedNum();
         // We will assign the destination stack item to this variable
         StackItem<Vertex<V>> target = null;
         // While the stack is not empty
@@ -170,7 +173,8 @@ public class DFSFindPath<V> extends GraphAlgorithm<V> {
         }
         // Exec stats
         execStats.stopExecution();
-        execStats.setPathLength(path.size());
+        ((FindPathAlgorithmExecutionStats) execStats).setSolutionFound(target != null);
+        ((FindPathAlgorithmExecutionStats) execStats).setPathLength(path.size());
         // Return the path
         return path;
     }
