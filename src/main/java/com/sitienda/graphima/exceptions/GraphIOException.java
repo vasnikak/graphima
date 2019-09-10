@@ -11,18 +11,18 @@ package com.sitienda.graphima.exceptions;
  * @author Vasileios Nikakis
  */
 public class GraphIOException extends Exception {
-
+    
     /**
      * Constructor
      */
     public GraphIOException() {
-        
+        super("Graph IO exception");
     }
 
     /**
      * Constructor
      * 
-     * @param string The exception message.
+     * @param string The exception message
      */
     public GraphIOException(String string) {
         super(string);
