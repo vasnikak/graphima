@@ -28,7 +28,7 @@ public class UCSShortestPath<V> extends AStarShortestPath<V> {
     public UCSShortestPath(Graph<V> graph) {
         super(graph);
         heuristicFunc = new ZeroHeuristicFunction<>();
-        execStats.setAlgorithmName("UCS shortest path");
+        execStats = new FindPathAlgorithmExecutionStats("UCS shortest path");
     }
     
     /**
