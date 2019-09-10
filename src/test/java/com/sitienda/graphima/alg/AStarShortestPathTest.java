@@ -85,8 +85,8 @@ public class AStarShortestPathTest {
             });
             Path path = astar.findShortestPath(start,end);
             AlgorithmExecutionStats stats = astar.getExecStats();
-            assertEquals(stats.getNodesVisitedNum(),68);
-            assertEquals(stats.getPathLength(),19);
+            assertEquals(stats.getNodesVisitedNum(),69);
+            assertEquals(((FindPathAlgorithmExecutionStats) stats).getPathLength(),19);
         }
         catch (VertexNotInGraphException e) { 
             fail(e.getMessage());
