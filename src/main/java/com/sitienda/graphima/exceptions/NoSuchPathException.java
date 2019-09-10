@@ -22,7 +22,7 @@ public class NoSuchPathException extends Exception {
     /**
      * Constructor
      * 
-     * @param string The exception message.
+     * @param string The exception message
      */
     public NoSuchPathException(String string) {
         super(string);
