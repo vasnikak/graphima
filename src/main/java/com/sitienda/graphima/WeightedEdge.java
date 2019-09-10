@@ -13,7 +13,7 @@ package com.sitienda.graphima;
  *
  * @author Vasileios Nikakis
  */
-public class WeightedEdge<V extends Vertex> extends Edge<V> {
+public class WeightedEdge<V extends Vertex<?>> extends Edge<V> {
 
     /**
      * The weight of the edge.
