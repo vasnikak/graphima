@@ -108,9 +108,7 @@ public class Vertex<T> {
      * @return true if the edge was added or false if the connection already exists.
      */
     public boolean addEdge(Edge edge) { 
-        synchronized(edges) { 
-            return edges.add(edge);
-        }
+        return edges.add(edge);
     }
     
     /**
@@ -119,9 +117,7 @@ public class Vertex<T> {
      * @return true if the edge was in the edge, false otherwise.
      */
     public boolean removeEdge(Edge edge) { 
-        synchronized(edges) { 
-            return edges.remove(edge);
-        }
+        return edges.remove(edge);
     }
     
     /**
