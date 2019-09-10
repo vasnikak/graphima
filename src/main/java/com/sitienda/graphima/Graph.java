@@ -303,8 +303,8 @@ public abstract class Graph<V> {
         for (Vertex<V> vertex : vertices) { 
             str += vertex + "\n";
             // The data of each edge
-            HashSet<Edge> edges = vertex.getEdges();
-            for (Edge edge : vertex.getEdges())
+            HashSet<Edge<Vertex<V>>> edges = vertex.getEdges();
+            for (Edge<Vertex<V>> edge : vertex.getEdges())
                 str += "   " + edge + "\n";
             if (++vertexCount < vertexNum)
                 str += "\n";
