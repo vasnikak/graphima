@@ -78,9 +78,7 @@ public class Path<V extends Vertex> {
      * @param node the node
      */
     public void add(V node) { 
-        synchronized(path) { 
-            path.add(node);
-        }
+        path.add(node);
     }
     
     /**
@@ -89,9 +87,7 @@ public class Path<V extends Vertex> {
      * @param node the node
      */
     public void push(V node) { 
-        synchronized(path) { 
-            path.add(node);
-        }
+        path.add(node);
     }
     
     /**
@@ -100,9 +96,7 @@ public class Path<V extends Vertex> {
      * @param node the node
      */
     public void prepend(V node) { 
-        synchronized(path) { 
-            path.add(0,node);
-        }
+        path.add(0,node);
     }
     
     /**
@@ -111,9 +105,7 @@ public class Path<V extends Vertex> {
      * @return The current path
      */
     public Path reverse() { 
-        synchronized(path) { 
-            Collections.reverse(path);
-        }
+        Collections.reverse(path);
         return this;
     }
     
