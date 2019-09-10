@@ -84,7 +84,7 @@ public abstract class WeightedGraph<V> extends Graph<V> {
         }
         // Then copy all edges
         for (Vertex<V> copyVertex : graph.getVertices()) { 
-            for (Edge copyEdge : copyVertex.getEdges()) { 
+            for (Edge<Vertex<V>> copyEdge : copyVertex.getEdges()) { 
                 Vertex<V> vertexFrom = copyMap.get(copyVertex);
                 Vertex<V> vertexTo = copyMap.get(copyEdge.getVertex());
                 // The default 
@@ -139,7 +139,7 @@ public abstract class WeightedGraph<V> extends Graph<V> {
             if (i < pathNodes.size()-1) { 
                 // There has to be a connection with the next node in the path
                 Vertex<V> nextNode = (Vertex<V>) pathNodes.get(i+1);
-                Edge edge = currentNode.getEdgeWith(nextNode);
+                Edge<Vertex<V>> edge = currentNode.getEdgeWith(nextNode);
                 if (edge == null)
                     throw new NoSuchPathException(currentNode + " and " + nextNode + " are not connected");
                 total += ((WeightedEdge) edge).getWeight();
