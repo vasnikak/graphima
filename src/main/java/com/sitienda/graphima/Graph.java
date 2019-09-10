@@ -71,6 +71,15 @@ public abstract class Graph<V> {
     }
     
     /**
+     * Checks if the graph has a name (other than the defaukt one).
+     * 
+     * @return true or false
+     */
+    public boolean hasName() { 
+        return (name != null && !name.equals(DEFAULT_NAME) && name.length() > 0);
+    }
+    
+    /**
      * 
      * @return the graph's set of vertices.
      */
@@ -145,9 +154,7 @@ public abstract class Graph<V> {
      * @return the graph
      */
     public Graph<V> addVertex(V vertexData) { 
-        synchronized(vertices) { 
-            vertices.add(new Vertex<>(vertexData));
-        }
+        vertices.add(new Vertex<>(vertexData));
         return this;
     }
     
@@ -280,9 +287,7 @@ public abstract class Graph<V> {
      * The graph will remain empty after this action.
      */
     public void clear() { 
-        synchronized(vertices) { 
-            vertices.clear();
-        }
+        vertices.clear();
     }
     
     /**
