@@ -42,7 +42,7 @@ public class JSONConverter<T> {
     }
     
     /**
-     * Creates an object based on its JSON representation
+     * Creates an object based on its JSON representation.
      * 
      * @param json the object's JSON representation
      * 
@@ -50,6 +50,20 @@ public class JSONConverter<T> {
      */
     public T fromJson(String json) { 
         return gson.fromJson(json, new TypeToken<T>(){}.getType());
+    }
+    
+    /**
+     * Converts a JSON document to an object of a class.
+     * 
+     * @param <T> object's type
+     * @param json the JSON document
+     * @param cls the class
+     * 
+     * @return the object of the corresponding class
+     */
+    public static <T> T fromJson(String json, Class<T> cls) { 
+        Gson gson = new Gson();
+        return gson.fromJson(json,cls);
     }
     
 }
