@@ -27,7 +27,7 @@ import java.util.PriorityQueue;
  * 
  * @author Vasileios Nikakis
  */
-public class AStarShortestPath<T> extends GraphAlgorithm {
+public class AStarShortestPath<T> extends GraphAlgorithm<T> {
     
     /**
      * Collision resolution comparator object.
@@ -219,7 +219,7 @@ public class AStarShortestPath<T> extends GraphAlgorithm {
      * 
      * @throws VertexNotInGraphException in case that any of the two vertices doesn't belong to the graph
      */
-    public Path findShortestPath(Object start, Object end) throws VertexNotInGraphException { 
+    public Path findShortestPath(T start, T end) throws VertexNotInGraphException { 
         // Find the corresponding vertices
         Vertex<T> startVertex = graph.getVertexWithData(start);
         if (startVertex == null)
