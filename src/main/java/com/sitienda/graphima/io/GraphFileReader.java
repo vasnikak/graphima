@@ -5,11 +5,6 @@
  */
 package com.sitienda.graphima.io;
 
-import com.sitienda.graphima.Graph;
-import com.sitienda.graphima.exceptions.ErroneousFileFormatException;
-import com.sitienda.graphima.exceptions.GraphDataMissingException;
-import com.sitienda.graphima.exceptions.GraphIOException;
-
 /**
  * The base class for each graph file reader.
  *
@@ -17,33 +12,20 @@ import com.sitienda.graphima.exceptions.GraphIOException;
  * 
  * @author Vasileios Nikakis
  */
-public abstract class GraphFileReader<V> extends GraphReader<V> {
+public abstract class GraphFileReader<V> implements GraphReader<V> {
 
     /**
-     * The file path.
+     * The input file path
      */
-    protected final String filepath;
+     protected final String filepath;
     
     /**
      * Constructor
      * 
-     * @param filepath the file path
+     * @param filepath the input file path
      */
     public GraphFileReader(String filepath) {
         this.filepath = filepath;
     }
-    
-    /**
-     * Creates and returns a new graph based on the data in the file.
-     * 
-     * @param cls the Class object of the class that its objects are 
-     *            encapsulated inside graph's vertices.
-     * 
-     * @return the graph
-     * 
-     * @throws GraphIOException if any IO error occurs
-     * @throws ErroneousFileFormatException if the graph type is not present in the file
-     */
-    public abstract Graph<V> readFile(Class<V> cls) throws GraphIOException, ErroneousFileFormatException;
     
 }
