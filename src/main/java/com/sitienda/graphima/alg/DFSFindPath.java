@@ -27,29 +27,29 @@ import java.util.Map;
  * object in case that a manual collision resolution is necessary.
  * </p>
  *
- * @param <T> the type of the objects that the graph contains
+ * @param <V> the type of the objects that the graph contains
  * 
  * @author Vasileios Nikakis
  */
-public class DFSFindPath<T> extends GraphAlgorithm<T> {
+public class DFSFindPath<V> extends GraphAlgorithm<V> {
     
     /**
      * Collision resolution comparator object.
      */
-    private final NodeComparator<T> collisionComp;
+    private final NodeComparator<V> collisionComp;
     
     /**
      * Inner helper class.
      * For each node, the parent node is stored.
      * 
-     * @param <V> each StackItem encapsulates a Vertex.
+     * @param <T> each StackItem encapsulates a Vertex.
      */
-    private class StackItem<V extends Vertex<T>> { 
+    private class StackItem<T extends Vertex<V>> { 
         
-        V node;
-        V parent;
+        T node;
+        T parent;
         
-        public StackItem(V node, V parent) { 
+        public StackItem(T node, T parent) { 
             this.node = node;
             this.parent = parent;
         }
@@ -61,7 +61,7 @@ public class DFSFindPath<T> extends GraphAlgorithm<T> {
      * 
      * @param graph the graph
      */
-    public DFSFindPath(Graph graph) {
+    public DFSFindPath(Graph<V> graph) {
         super(graph);
         collisionComp = null;
     }
@@ -72,7 +72,7 @@ public class DFSFindPath<T> extends GraphAlgorithm<T> {
      * @param graph the graph.
      * @param collisionComp the vertex comparator to resolve any collisions.
      */
-    public DFSFindPath(Graph graph, NodeComparator<T> collisionComp) {
+    public DFSFindPath(Graph<V> graph, NodeComparator<V> collisionComp) {
         super(graph);
         this.collisionComp = collisionComp;
     }
@@ -87,7 +87,7 @@ public class DFSFindPath<T> extends GraphAlgorithm<T> {
      * 
      * @throws VertexNotInGraphException in case that any of the two vertices doesn't belong to the graph
      */
-    public Path findPath(Vertex<T> start, Vertex<T> end) throws VertexNotInGraphException { 
+    public Path findPath(Vertex<V> start, Vertex<V> end) throws VertexNotInGraphException { 
         // Both vertices have to exist inside the graph
         if (!graph.contains(start))
             throw new VertexNotInGraphException("The starting point vertex (" + start + ") doesn't exist in the graph");
@@ -99,20 +99,20 @@ public class DFSFindPath<T> extends GraphAlgorithm<T> {
         execStats.reset();
         
         // We need a stack to store the nodes that wait to be examined
-        Deque<StackItem<Vertex<T>>> stack = new ArrayDeque<>();
+        Deque<StackItem<Vertex<V>>> stack = new ArrayDeque<>();
         // We need a map to be able to extract the path after the execution of the algorithm
-        Map<Vertex<T>,StackItem<Vertex<T>>> visited = new HashMap<>();
+        Map<Vertex<V>,StackItem<Vertex<V>>> visited = new HashMap<>();
         
         // Push the starting node in the stack
-        StackItem<Vertex<T>> first = new StackItem<>(start,null);
+        StackItem<Vertex<V>> first = new StackItem<>(start,null);
         stack.push(first);
         visited.put(start,first);
         // We will assign the destination stack item to this variable
-        StackItem<Vertex<T>> target = null;
+        StackItem<Vertex<V>> target = null;
         // While the stack is not empty
         while (!stack.isEmpty()) { 
             // Get the stack's first node
-            StackItem<Vertex<T>> current = stack.pop();
+            StackItem<Vertex<V>> current = stack.pop();
             // If it is the destination, stop the iteration
             if (current.node.equals(end)) { 
                 target = current;
@@ -120,11 +120,11 @@ public class DFSFindPath<T> extends GraphAlgorithm<T> {
             }
             // If no comparator was defined for collision resolution
             if (collisionComp == null) { 
-                for (Edge edge : current.node.getEdges()) { 
+                for (Edge<Vertex<V>> edge : current.node.getEdges()) { 
                     // If we haven't visited yet the child node
                     if (visited.get(edge.getVertex()) == null) { 
                         // Push the node in the stack
-                        StackItem<Vertex<T>> child = new StackItem<>(edge.getVertex(),current.node);
+                        StackItem<Vertex<V>> child = new StackItem<>(edge.getVertex(),current.node);
                         stack.add(child);
                         // Mark the node as visited
                         visited.put(edge.getVertex(),child);
@@ -135,35 +135,35 @@ public class DFSFindPath<T> extends GraphAlgorithm<T> {
             // If a comparator for collision resolution was defined
             } else { 
                 // Create a temporary list to resolve collisions
-                List<StackItem<Vertex<T>>> children = new LinkedList<>();
-                for (Edge edge : current.node.getEdges()) { 
+                List<StackItem<Vertex<V>>> children = new LinkedList<>();
+                for (Edge<Vertex<V>> edge : current.node.getEdges()) { 
                     // If we haven't visited yet the child node
                     if (visited.get(edge.getVertex()) == null) { 
                         // Add the node in the temporary list
-                        StackItem<Vertex<T>> child = new StackItem<>(edge.getVertex(),current.node);
+                        StackItem<Vertex<V>> child = new StackItem<>(edge.getVertex(),current.node);
                         children.add(child);
                         // Mark the node as visited
                         visited.put(edge.getVertex(),child);
                     }
                 }
                 // Sort the list using the collision resolution comparator
-                children.sort(new Comparator<StackItem<Vertex<T>>>() {
+                children.sort(new Comparator<StackItem<Vertex<V>>>() {
                     @Override
-                    public int compare(StackItem<Vertex<T>> a, StackItem<Vertex<T>> b) {
+                    public int compare(StackItem<Vertex<V>> a, StackItem<Vertex<V>> b) {
                         return collisionComp.compare(a.node.getData(),b.node.getData());
                     }
                 });
                 // Push the list items in the stack in a reverse order
                 // (we are pushing the items in a stack)
-                for (ListIterator<StackItem<Vertex<T>>> it = children.listIterator(children.size());
+                for (ListIterator<StackItem<Vertex<V>>> it = children.listIterator(children.size());
                      it.hasPrevious();)
                     stack.push(it.previous());
             }
         }
         
         // Build the path from start to end
-        Path<Vertex<T>> path = new Path<>();
-        StackItem<Vertex<T>> run = target;
+        Path<Vertex<V>> path = new Path<>();
+        StackItem<Vertex<V>> run = target;
         while (run != null) { 
             path.prepend(run.node);
             run = visited.get(run.parent);
@@ -186,12 +186,12 @@ public class DFSFindPath<T> extends GraphAlgorithm<T> {
      * 
      * @throws VertexNotInGraphException in case that any of the two vertices doesn't belong to the graph
      */
-    public Path findPath(T start, T end) throws VertexNotInGraphException { 
+    public Path findPath(V start, V end) throws VertexNotInGraphException { 
         // Find the corresponding vertices
-        Vertex<T> startVertex = graph.getVertexWithData(start);
+        Vertex<V> startVertex = graph.getVertexWithData(start);
         if (startVertex == null)
             throw new VertexNotInGraphException("The graph does not contain any vertex with data: " + start);
-        Vertex<T> endVertex = graph.getVertexWithData(end);
+        Vertex<V> endVertex = graph.getVertexWithData(end);
         if (endVertex == null)
             throw new VertexNotInGraphException("The graph does not contain any vertex with data: " + end);
         return findPath(startVertex,endVertex);
