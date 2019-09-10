@@ -22,7 +22,7 @@ public class ErroneousFileFormatException extends Exception {
     /**
      * Constructor
      * 
-     * @param string The exception message.
+     * @param string The exception message
      */
     public ErroneousFileFormatException(String string) {
         super(string);
