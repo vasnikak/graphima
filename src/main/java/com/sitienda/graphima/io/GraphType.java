@@ -6,9 +6,11 @@
 package com.sitienda.graphima.io;
 
 import com.sitienda.graphima.DirectedGraph;
+import com.sitienda.graphima.DirectedWeightedGraph;
 import com.sitienda.graphima.Graph;
 import com.sitienda.graphima.UndirectedGraph;
 import com.sitienda.graphima.UndirectedWeightedGraph;
+import com.sitienda.graphima.exceptions.GraphDataMissingException;
 
 /**
  *
@@ -33,7 +35,7 @@ public final class GraphType {
      * 
      * @return the respective type
      */
-    public final static Type getGraphType(Graph graph) { 
+    public static Type getGraphType(Graph graph) { 
         if (graph instanceof UndirectedGraph)
             return Type.UNDIRECTED_GRAPH;
         else if (graph instanceof UndirectedWeightedGraph)
@@ -51,7 +53,7 @@ public final class GraphType {
      * 
      * @return the type's string representation
      */
-    public final static String getGraphTypeString(Graph graph) { 
+    public static String getGraphTypeString(Graph graph) { 
         Type type = getGraphType(graph);
         switch (type) { 
             case UNDIRECTED_GRAPH:
@@ -75,7 +77,7 @@ public final class GraphType {
      * 
      * @return the respective type or null.
      */
-    public final static Type getGraphType(String type) { 
+    public static Type getGraphType(String type) { 
         switch (type) { 
             case "UNDIRECTED_GRAPH":
                 return Type.UNDIRECTED_GRAPH;
@@ -87,6 +89,38 @@ public final class GraphType {
                 return Type.DIRECTED_WEIGHTED_GRAPH;
         }
         return null;
+    }
+    
+    /**
+     * Creates an instance of a graph according to its type.
+     * 
+     * @param <V> the type of objects that the graph contains
+     * @param type the type of the graph
+     * 
+     * @return the new (empty) graph
+     * 
+     * @throws GraphDataMissingException in case that the type doesn't have a valid value
+     */
+    public static <V> Graph<V> getInstance(Type type) throws GraphDataMissingException { 
+        Graph<V> graph = null;
+        switch (type) { 
+            case UNDIRECTED_GRAPH:
+                graph = new UndirectedGraph<>();
+                break;
+            case UNDIRECTED_WEIGHTED_GRAPH:
+                graph = new UndirectedWeightedGraph<>();
+                break;
+            case DIRECTED_GRAPH:
+                graph = new DirectedGraph<>();
+                break;
+            case DIRECTED_WEIGHTED_GRAPH:
+                graph = new DirectedWeightedGraph<>();
+                break;
+            default:
+                // It should never reach here
+                throw new GraphDataMissingException("Graph type doesn't have a valid value");
+        }
+        return graph;
     }
     
 }
