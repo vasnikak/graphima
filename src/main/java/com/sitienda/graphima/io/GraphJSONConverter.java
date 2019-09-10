@@ -8,12 +8,8 @@ package com.sitienda.graphima.io;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
-import com.sitienda.graphima.DirectedGraph;
-import com.sitienda.graphima.DirectedWeightedGraph;
 import com.sitienda.graphima.Edge;
 import com.sitienda.graphima.Graph;
-import com.sitienda.graphima.UndirectedGraph;
-import com.sitienda.graphima.UndirectedWeightedGraph;
 import com.sitienda.graphima.Vertex;
 import com.sitienda.graphima.WeightedEdge;
 import com.sitienda.graphima.WeightedGraph;
@@ -164,24 +160,7 @@ public class GraphJSONConverter<V> {
         if (type == null)
             throw new GraphDataMissingException("Graph type is missing");
         // Instanciate the correct graph type
-        Graph<V> graph = null;
-        switch (type) { 
-            case UNDIRECTED_GRAPH:
-                graph = new UndirectedGraph<>();
-                break;
-            case UNDIRECTED_WEIGHTED_GRAPH:
-                graph = new UndirectedWeightedGraph<>();
-                break;
-            case DIRECTED_GRAPH:
-                graph = new DirectedGraph<>();
-                break;
-            case DIRECTED_WEIGHTED_GRAPH:
-                graph = new DirectedWeightedGraph<>();
-                break;
-            default:
-                // It should never reach here
-                throw new GraphDataMissingException("Graph type doesn't have a valid value");
-        }
+        Graph<V> graph = GraphType.getInstance(type);
         
         // Set the name of the graph
         String name = (String) graphData.get("name");
