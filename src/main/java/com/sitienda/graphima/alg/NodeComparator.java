@@ -12,10 +12,10 @@ import java.util.Comparator;
  * In cases like this, a NodeComparator object can be provided, if the
  * collision has to be resolved in a manual manner.
  *
- * @param <T> the type of the objects that the graph contains
+ * @param <V> the type of the objects that the graph contains
  *
  * @author Vasileios Nikakis
  */
-public interface NodeComparator<T> extends Comparator<T> {
+public interface NodeComparator<V> extends Comparator<V> {
     
 }
