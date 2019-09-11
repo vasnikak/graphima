@@ -89,7 +89,7 @@ public class DijkstraShortestPath<V> extends GraphAlgorithm<V> {
      * 
      * @throws VertexNotInGraphException in case a vertex was not found 
      */
-    public Map<Vertex<V>,Path> findShortestPaths(Vertex<V> start) throws VertexNotInGraphException { 
+    public Map<Vertex<V>,Path<Vertex<V>>> findShortestPaths(Vertex<V> start) throws VertexNotInGraphException { 
         // The vertex has to exist inside the graph
         if (!graph.contains(start))
             throw new VertexNotInGraphException("Vertex (" + start + ") doesn't exist in the graph");
@@ -154,10 +154,10 @@ public class DijkstraShortestPath<V> extends GraphAlgorithm<V> {
         }
         
         // Create a map with the shortest paths from start to each node
-        Map<Vertex<V>,Path> paths = new HashMap<>();
+        Map<Vertex<V>,Path<Vertex<V>>> paths = new HashMap<>();
         // For each one of the vertices
         for (Map.Entry<Vertex<V>,QueueItem<Vertex<V>>> entry : visited.entrySet()) { 
-            // Construct its path
+            // Construct its path from start
             Vertex<V> vertex = entry.getKey();
             QueueItem<Vertex<V>> qItem = entry.getValue();
             Path<Vertex<V>> path = new Path<>();
@@ -189,14 +189,14 @@ public class DijkstraShortestPath<V> extends GraphAlgorithm<V> {
      * 
      * @throws VertexNotInGraphException in case a vertex was not found 
      */
-    public Map<V,Path> findShortestPaths(V start) throws VertexNotInGraphException { 
+    public Map<V,Path<Vertex<V>>> findShortestPaths(V start) throws VertexNotInGraphException { 
         // Find the corresponding vertices
         Vertex<V> startVertex = graph.getVertexWithData(start);
         if (startVertex == null)
             throw new VertexNotInGraphException("The graph does not contain any vertex with data: " + start);
-        Map<Vertex<V>,Path> vertexPaths = findShortestPaths(startVertex);
-        Map<V,Path> objPaths = new HashMap<>();
-        for (Map.Entry<Vertex<V>,Path> entry : vertexPaths.entrySet())
+        Map<Vertex<V>,Path<Vertex<V>>> vertexPaths = findShortestPaths(startVertex);
+        Map<V,Path<Vertex<V>>> objPaths = new HashMap<>();
+        for (Map.Entry<Vertex<V>,Path<Vertex<V>>> entry : vertexPaths.entrySet())
             objPaths.put(entry.getKey().getData(),entry.getValue());
         return objPaths;
     }
