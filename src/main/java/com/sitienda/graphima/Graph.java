@@ -277,7 +277,7 @@ public abstract class Graph<V> {
      * 
      * @return true or false
      */
-    public boolean pathExists(Path path) { 
+    public boolean pathExists(Path<Vertex<V>> path) { 
         List<Vertex<V>> pathNodes = new LinkedList(path.getPath());
         return pathExists(pathNodes);
     }
