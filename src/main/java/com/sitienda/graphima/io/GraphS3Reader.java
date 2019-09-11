@@ -6,6 +6,7 @@
 package com.sitienda.graphima.io;
 
 import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -39,6 +40,33 @@ public class GraphS3Reader<V> extends GraphS3Manager implements GraphReader<V> {
      */
     public GraphS3Reader(Regions region, String bucketName, String keyName) { 
         super(region,bucketName,keyName);
+    }
+    
+    /**
+     * Creates an S3 reader using explicitly defined credentials.
+     * 
+     * @param accessKeyId the access key
+     * @param secretKeyId the secret key
+     * @param region the region
+     * @param bucketName the bucket name
+     * @param keyName they key name
+     */
+    public GraphS3Reader(String accessKeyId, String secretKeyId, Regions region, 
+                         String bucketName, String keyName) { 
+        super(accessKeyId,secretKeyId,region,bucketName,keyName);
+    }
+    
+    /**
+     * Creates an S3 reader using explicitly defined credentials.
+     * 
+     * @param awsCreds the AWS credentials
+     * @param region the region
+     * @param bucketName the bucket name
+     * @param keyName they key name
+     */
+    public GraphS3Reader(BasicAWSCredentials awsCreds, Regions region, 
+                         String bucketName, String keyName) { 
+        super(awsCreds,region,bucketName,keyName);
     }
     
     /**
