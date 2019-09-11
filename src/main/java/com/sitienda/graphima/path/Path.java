@@ -104,7 +104,7 @@ public class Path<V extends Vertex> {
      * 
      * @return The current path
      */
-    public Path reverse() { 
+    public Path<V> reverse() { 
         Collections.reverse(path);
         return this;
     }
@@ -172,7 +172,7 @@ public class Path<V extends Vertex> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Path other = (Path) obj;
+        final Path<?> other = (Path<?>) obj;
         if (!Objects.equals(this.path, other.path)) {
             return false;
         }
