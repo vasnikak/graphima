@@ -74,8 +74,9 @@ public class GraphS3Writer<V> extends GraphS3Manager implements GraphWriter<V> {
                 // Check if the bucket exists in the current profile
                 if (!bucketExistsInProfile())
                     throw new GraphIOException("The requested bucket (" + bucketName + ") exists but not in the provided profile");
-            // if the bucket doesn't exist, create it
+            // if the bucket doesn't exist
             } else { 
+                // Create it
                 s3.createBucket(new CreateBucketRequest(bucketName));
                 // Verify that the bucket was created
                 if (!bucketExistsInProfile())
