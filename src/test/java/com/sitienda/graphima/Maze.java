@@ -51,8 +51,8 @@ public class Maze {
         maze[x][y].setValue(value);
     }
     
-    public UndirectedGraph<MazeCell> generateGraph() { 
-        UndirectedGraph<MazeCell> graph = new UndirectedGraph<>("Maze");
+    public UndirectedGraph<MazeCell> generateGraph(String name) { 
+        UndirectedGraph<MazeCell> graph = new UndirectedGraph<>(name);
         for (int i = 0; i < maze.length; i++) { 
             for (int j = 0; j < maze[i].length; j++)
                 graph.addVertex(maze[i][j]);
