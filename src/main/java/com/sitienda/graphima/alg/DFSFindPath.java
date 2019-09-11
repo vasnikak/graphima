@@ -89,7 +89,7 @@ public class DFSFindPath<V> extends GraphAlgorithm<V> {
      * 
      * @throws VertexNotInGraphException in case that any of the two vertices doesn't belong to the graph
      */
-    public Path findPath(Vertex<V> start, Vertex<V> end) throws VertexNotInGraphException { 
+    public Path<Vertex<V>> findPath(Vertex<V> start, Vertex<V> end) throws VertexNotInGraphException { 
         // Both vertices have to exist inside the graph
         if (!graph.contains(start))
             throw new VertexNotInGraphException("The starting point vertex (" + start + ") doesn't exist in the graph");
@@ -190,7 +190,7 @@ public class DFSFindPath<V> extends GraphAlgorithm<V> {
      * 
      * @throws VertexNotInGraphException in case that any of the two vertices doesn't belong to the graph
      */
-    public Path findPath(V start, V end) throws VertexNotInGraphException { 
+    public Path<Vertex<V>> findPath(V start, V end) throws VertexNotInGraphException { 
         // Find the corresponding vertices
         Vertex<V> startVertex = graph.getVertexWithData(start);
         if (startVertex == null)
