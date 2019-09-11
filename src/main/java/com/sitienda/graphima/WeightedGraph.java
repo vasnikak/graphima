@@ -157,7 +157,7 @@ public abstract class WeightedGraph<V> extends Graph<V> {
      * 
      * @throws NoSuchPathException if the path is not valid
      */
-    public int totalWeight(Path path) throws NoSuchPathException { 
+    public int totalWeight(Path<Vertex<V>> path) throws NoSuchPathException { 
         List<Vertex<V>> pathNodes = new LinkedList(path.getPath());
         return totalWeight(pathNodes);
     }
