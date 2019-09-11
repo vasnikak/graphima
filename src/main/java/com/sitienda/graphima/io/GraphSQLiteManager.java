@@ -17,7 +17,7 @@ import org.sqlite.SQLiteConfig;
  * 
  * @author Vasileios Nikakis
  */
-public class GraphSQLiteManager implements GraphSQLManager {
+public abstract class GraphSQLiteManager implements GraphSQLManager {
     
     /**
      * The SQLite database path
