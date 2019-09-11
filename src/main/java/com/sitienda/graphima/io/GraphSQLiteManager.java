@@ -20,10 +20,6 @@ import org.sqlite.SQLiteConfig;
 public abstract class GraphSQLiteManager implements GraphSQLManager {
     
     /**
-     * The SQLite database path
-     */
-    protected final String dbpath;
-    /**
      * The database connection
      */
     protected final Connection conn;
@@ -40,20 +36,11 @@ public abstract class GraphSQLiteManager implements GraphSQLManager {
      * @throws SQLException in case of a connection error
      */
     public GraphSQLiteManager(String dbpath) throws SQLException { 
-        this.dbpath = dbpath;
         String connUrl = "jdbc:sqlite:" + dbpath;
         SQLiteConfig config = new SQLiteConfig();  
         config.enforceForeignKeys(true);  
         conn = DriverManager.getConnection(connUrl,config.toProperties());
         activeConn = true;
-    }
-    
-    /**
-     * 
-     * @return The SQLite database path
-     */
-    public String getDbpath() { 
-        return dbpath;
     }
     
     /**
