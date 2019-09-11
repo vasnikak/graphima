@@ -19,18 +19,18 @@ import java.util.Objects;
  */
 public class Vertex<V> {
     /**
-     * The contained object.
+     * The contained object
      */
     private final V data;
     /**
-     * The edges of the vertex.
+     * The edges of the vertex
      */
     private final HashSet<Edge<Vertex<V>>> edges;
     
     /**
      * Constructor
      * 
-     * @param data the contained object. 
+     * @param data the contained object
      * 
      * @throws VertexNullPointerException if the data is null
      */
@@ -43,7 +43,7 @@ public class Vertex<V> {
     
     /**
      * 
-     * @return the contained object.
+     * @return the contained object
      */
     public V getData() { 
         return data;
@@ -51,7 +51,7 @@ public class Vertex<V> {
     
     /**
      * 
-     * @return the edges of the vertex.
+     * @return the edges of the vertex
      */
     public HashSet<Edge<Vertex<V>>> getEdges() { 
         return edges;
@@ -60,9 +60,9 @@ public class Vertex<V> {
     /**
      * Checks if the contained data object is the same with the argument.
      * 
-     * @param data the item that needs to be checked.
+     * @param data the item that needs to be checked
      * 
-     * @return true or false.
+     * @return true or false
      */
     public boolean contains(V data) { 
         return this.data.equals(data);
@@ -71,9 +71,9 @@ public class Vertex<V> {
     /**
      * Checks if the current vertex has an edge with another vertex.
      * 
-     * @param vertex the vertex that needs to be checked.
+     * @param vertex the vertex that needs to be checked
      * 
-     * @return true or false.
+     * @return true or false
      */
     public boolean hasEdgeWith(Vertex<V> vertex) { 
         for (Edge<Vertex<V>> edge : edges) { 
@@ -86,21 +86,21 @@ public class Vertex<V> {
     /**
      * Checks if the current vertex has a specific edge.
      * 
-     * @param edge the edge that needs to be checked.
+     * @param edge the edge that needs to be checked
      * 
-     * @return true or false.
+     * @return true or false
      */
     public boolean hasEdge(Edge<Vertex<V>> edge) { 
         return hasEdgeWith(edge.getVertex());
     }
     
     /**
-     * Returns the corresponding edge with a specific edge or null if this
+     * Returns the corresponding edge with a specific vertex or null if this
      * edge doesn't exist.
      * 
-     * @param vertex the edge to be found.
+     * @param vertex the edge to be found
      * 
-     * @return true or false.
+     * @return true or false
      */
     public Edge<Vertex<V>> getEdgeWith(Vertex<V> vertex) { 
         for (Edge<Vertex<V>> edge: edges) { 
@@ -113,9 +113,9 @@ public class Vertex<V> {
     /**
      * Adds an edge to the current vertex's set of edges.
      * 
-     * @param edge the edge to be added.
+     * @param edge the edge to be added
      * 
-     * @return true if the edge was added or false if the connection already exists.
+     * @return true if the edge was added or false if the connection already exists
      */
     public boolean addEdge(Edge<Vertex<V>> edge) { 
         return edges.add(edge);
@@ -135,9 +135,9 @@ public class Vertex<V> {
     /**
      * Removes an edge with a specific vertex.
      * 
-     * @param vertex the vertex that the corresponding edge will be removed.
+     * @param vertex the vertex that the corresponding edge will be removed
      * 
-     * @return true if the connection was present, false otherwise.
+     * @return true if the connection was present, false otherwise
      */
     public boolean removeEdgeWith(Vertex<V> vertex) { 
         Edge<Vertex<V>> edge = getEdgeWith(vertex);
@@ -151,7 +151,7 @@ public class Vertex<V> {
     /**
      * Returns a HashSet that contains the neighbor vertices.
      * 
-     * @return the neighbor vertices.
+     * @return the neighbor vertices
      */
     public HashSet<Vertex<V>> getNeighbors() { 
         HashSet<Vertex<V>> neighbors = new HashSet<>();
@@ -163,7 +163,7 @@ public class Vertex<V> {
     /**
      * Returns the number of neighbor vertices.
      * 
-     * @return the number of neighbor vertices.
+     * @return the number of neighbor vertices
      */
     public int getNeighborsSize() { 
         return edges.size();
