@@ -110,7 +110,7 @@ public class GraphSQLiteWriter<V> extends GraphSQLiteManager implements GraphSQL
     private void dropTable(String tblName) throws SQLException { 
         Statement stmt = null;
         try { 
-            // SQLite doesn't support prepared statements that use the DROP
+            // SQLite driver doesn't support prepared statements that use the DROP
             // command with variable table names.
             // Therefore, the DROP command has to be manually constructed
             // Since the names of the tables are constants and defined in the
