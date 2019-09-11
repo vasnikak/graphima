@@ -58,7 +58,7 @@ public class AStarShortestPathTest {
             {0,0,0,1,0,0,0,0,0,0}
         };
         maze = new Maze(mazeData);
-        graph = maze.generateGraph();
+        graph = maze.generateGraph("Maze");
         start = maze.getCell(0,0);
         end = maze.getCell(9,9);
     }
