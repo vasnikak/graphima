@@ -5,6 +5,8 @@
  */
 package com.sitienda.graphima.io;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
@@ -48,6 +50,42 @@ public abstract class GraphS3Manager {
         s3 = AmazonS3ClientBuilder.standard()
                 .withCredentials(new ProfileCredentialsProvider())
                 .withRegion(region)
+                .build();
+    }
+    
+    /**
+     * Creates an S3 client using explicitly defined credentials.
+     * 
+     * @param accessKeyId the access key
+     * @param secretKeyId the secret key
+     * @param region the region
+     * @param bucketName the bucket name
+     * @param keyName they key name
+     */
+    public GraphS3Manager(String accessKeyId, String secretKeyId, Regions region, 
+                          String bucketName, String keyName) { 
+        this.bucketName = bucketName;
+        this.keyName = keyName;
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId,secretKeyId);
+        s3 = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                .build();
+    }
+    
+    /**
+     * Creates an S3 client using explicitly defined credentials.
+     * 
+     * @param awsCreds the AWS credentials
+     * @param region the region
+     * @param bucketName the bucket name
+     * @param keyName they key name
+     */
+    public GraphS3Manager(BasicAWSCredentials awsCreds, Regions region, 
+                          String bucketName, String keyName) { 
+        this.bucketName = bucketName;
+        this.keyName = keyName;
+        s3 = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .build();
     }
     
