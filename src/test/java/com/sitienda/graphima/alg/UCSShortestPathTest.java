@@ -8,21 +8,20 @@ package com.sitienda.graphima.alg;
 import com.sitienda.graphima.Graph;
 import com.sitienda.graphima.Maze;
 import com.sitienda.graphima.MazeCell;
-import com.sitienda.graphima.alg.heuristics.HeuristicFunction;
 import com.sitienda.graphima.exceptions.VertexNotInGraphException;
 import com.sitienda.graphima.path.Path;
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 
 /**
- * A* shortest path algorithm tests.
+ * UCS shortest path algorithm tests.
  * 
  * @author Vasileios Nikakis
  */
-@TestInstance(Lifecycle.PER_CLASS)
-public class AStarShortestPathTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class UCSShortestPathTest {
     
     /**
      * The maze
@@ -33,7 +32,7 @@ public class AStarShortestPathTest {
      */
     private Graph<MazeCell> graph;
     
-    public AStarShortestPathTest() {
+    public UCSShortestPathTest() {
         
     }
 
@@ -60,7 +59,7 @@ public class AStarShortestPathTest {
     }
     
     /**
-     * Test of findShortestPath method, of class AStarShortestPath.
+     * Test of findShortestPath method, of class UCSShortestPath.
      */
     @Test
     public void testFindShortestPath1() {
@@ -70,15 +69,10 @@ public class AStarShortestPathTest {
         
         // Execute test
         try { 
-            AStarShortestPath<MazeCell> astar = new AStarShortestPath<>(graph, new HeuristicFunction<MazeCell>() { 
-                @Override
-                public int h(MazeCell obj) {
-                    return Math.abs(obj.getX() - end.getX()) + Math.abs(obj.getY() - end.getY());
-                }
-            });
-            Path path = astar.findShortestPath(start,end);
-            AlgorithmExecutionStats stats = astar.getExecStats();
-            assertEquals(stats.getNodesVisitedNum(),69);
+            UCSShortestPath<MazeCell> ucs = new UCSShortestPath<>(graph);
+            Path path = ucs.findShortestPath(start,end);
+            AlgorithmExecutionStats stats = ucs.getExecStats();
+            assertEquals(stats.getNodesVisitedNum(),78);
             assertEquals(((FindPathAlgorithmExecutionStats) stats).getPathLength(),19);
         }
         catch (VertexNotInGraphException e) { 
@@ -87,7 +81,7 @@ public class AStarShortestPathTest {
     }
     
     /**
-     * Test of findShortestPath method, of class AStarShortestPath.
+     * Test of findShortestPath method, of class UCSShortestPath.
      */
     @Test
     public void testFindShortestPath2() {
@@ -97,14 +91,9 @@ public class AStarShortestPathTest {
         
         // Execute test
         try { 
-            AStarShortestPath<MazeCell> astar = new AStarShortestPath<>(graph, new HeuristicFunction<MazeCell>() { 
-                @Override
-                public int h(MazeCell obj) {
-                    return Math.abs(obj.getX() - end.getX()) + Math.abs(obj.getY() - end.getY());
-                }
-            });
-            Path path = astar.findShortestPath(start,end);
-            AlgorithmExecutionStats stats = astar.getExecStats();
+            UCSShortestPath<MazeCell> ucs = new UCSShortestPath<>(graph);
+            Path path = ucs.findShortestPath(start,end);
+            AlgorithmExecutionStats stats = ucs.getExecStats();
             assertEquals(((FindPathAlgorithmExecutionStats) stats).wasSolutionFound(),false);
             assertEquals(stats.getNodesVisitedNum(),79);
         }
