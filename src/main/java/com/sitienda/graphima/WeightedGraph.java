@@ -5,7 +5,7 @@
  */
 package com.sitienda.graphima;
 
-import com.sitienda.graphima.exceptions.NoSuchPathException;
+import com.sitienda.graphima.exceptions.PathNotValidException;
 import com.sitienda.graphima.path.Path;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -125,23 +125,23 @@ public abstract class WeightedGraph<V> extends Graph<V> {
      * 
      * @return int the sum of the corresponding weights of the edges of the path
      * 
-     * @throws NoSuchPathException if the path is not valid
+     * @throws PathNotValidException if the path is not valid
      */
-    public int totalWeight(List<Vertex<V>> pathNodes) throws NoSuchPathException { 
+    public int totalWeight(List<Vertex<V>> pathNodes) throws PathNotValidException { 
         int total = 0;
         // For each node in the path
         for (int i = 0; i < pathNodes.size(); i++) { 
             Vertex<V> currentNode = (Vertex<V>) pathNodes.get(i);
             // Check if the node actually exist in the current graph
             if (!vertices.contains(currentNode))
-                throw new NoSuchPathException("Graph does not contain " + currentNode);
+                throw new PathNotValidException("Graph does not contain " + currentNode);
             // If it is not the last node in the path
             if (i < pathNodes.size()-1) { 
                 // There has to be a connection with the next node in the path
                 Vertex<V> nextNode = (Vertex<V>) pathNodes.get(i+1);
                 Edge<Vertex<V>> edge = currentNode.getEdgeWith(nextNode);
                 if (edge == null)
-                    throw new NoSuchPathException(currentNode + " and " + nextNode + " are not connected");
+                    throw new PathNotValidException(currentNode + " and " + nextNode + " are not connected");
                 total += ((WeightedEdge) edge).getWeight();
             }
         }
@@ -155,9 +155,9 @@ public abstract class WeightedGraph<V> extends Graph<V> {
      * 
      * @return int the sum of the corresponding weights of the edges of the path
      * 
-     * @throws NoSuchPathException if the path is not valid
+     * @throws PathNotValidException if the path is not valid
      */
-    public int totalWeight(Path<Vertex<V>> path) throws NoSuchPathException { 
+    public int totalWeight(Path path) throws PathNotValidException { 
         List<Vertex<V>> pathNodes = new LinkedList(path.getPath());
         return totalWeight(pathNodes);
     }
