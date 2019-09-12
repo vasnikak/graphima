@@ -82,6 +82,16 @@ public class Path<V extends Vertex> {
     }
     
     /**
+     * Append a list of nodes in the path
+     * 
+     * @param nodes the list of nodes
+     */
+    public void addAll(List<V> nodes) { 
+        for (V node : nodes)
+            path.add(node);
+    }
+    
+    /**
      * A synonym of {@link #add(com.sitienda.graphima.Vertex)}.
      * 
      * @param node the node
@@ -129,6 +139,21 @@ public class Path<V extends Vertex> {
      */
     public boolean endsWith(V node) { 
         return (!path.isEmpty() && path.get(path.size()-1).equals(node));
+    }
+    
+    /**
+     * Checks if the current path is valid.
+     * A valid path has a connection between every two consecutive vertices.
+     * 
+     * @return true or false according to if the current path is valid.
+     */
+    public boolean validate() {
+        for (int i = 0; i < path.size(); i++) { 
+            if (i < path.size()-1 && 
+                !path.get(i).hasEdgeWith(path.get(i+1)))
+                return false;
+        }
+        return true;
     }
     
     /**
