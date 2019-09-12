@@ -5,6 +5,7 @@
  */
 package com.sitienda.graphima;
 
+import com.sitienda.graphima.exceptions.VertexNotInGraphException;
 import com.sitienda.graphima.path.Path;
 import java.util.Collection;
 import java.util.HashSet;
@@ -178,12 +179,68 @@ public abstract class Graph<V> {
      * @param vertexData a list with the vertex data objects
      * 
      * @return the corresponding vertices
+     * 
+     * @throws VertexNotInGraphException if there is not a vertex for one or more of the data objects
      */
-    protected List<Vertex<V>> findVertices(List<V> vertexData) { 
+    protected List<Vertex<V>> findVertices(List<V> vertexData) throws VertexNotInGraphException { 
         List<Vertex<V>> myVertices = new LinkedList<>();
-        for (V data : vertexData)
+        for (V data : vertexData) { 
+            Vertex<V> vertex = getVertexWithData(data);
+            if (vertex == null)
+                throw new VertexNotInGraphException("Vertex with data " + data + " does not exist in the graph");
             myVertices.add(getVertexWithData(data));
+        }
         return myVertices;
+    }
+    
+    /**
+     * Returns a path with the corresponding vertices.
+     * 
+     * @param vertexData a list with the data of each vertex
+     * 
+     * @return the corresponding path
+     * 
+     * @throws VertexNotInGraphException if there is not a vertex for one or more of the data objects
+     */
+    public Path getPath(List<V> vertexData) throws VertexNotInGraphException { 
+        return new Path<>(findVertices(vertexData));
+    }
+    
+    /**
+     * Checks if a path exists in the graph.
+     * 
+     * @param pathNodes the path expressed as a list of vertices
+     * 
+     * @return true or false according to if the path exists
+     */
+    public boolean pathExists(List<Vertex<V>> pathNodes) { 
+        // For each node in the path
+        for (int i = 0; i < pathNodes.size(); i++) { 
+            Vertex<V> currentNode = (Vertex<V>) pathNodes.get(i);
+            // Check if the node actually exist in the current graph
+            if (!vertices.contains(currentNode))
+                return false;
+            // If it is not the last node in the path
+            if (i < pathNodes.size()-1) { 
+                // There has to be a connection with the next node in the path
+                Vertex<V> nextNode = (Vertex<V>) pathNodes.get(i+1);
+                if (!currentNode.hasEdgeWith(nextNode))
+                    return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Checks if a path exists in the graph.
+     * 
+     * @param path the path object
+     * 
+     * @return true or false
+     */
+    public boolean pathExists(Path path) { 
+        List<Vertex<V>> pathNodes = new LinkedList(path.getPath());
+        return pathExists(pathNodes);
     }
     
     /**
@@ -244,43 +301,6 @@ public abstract class Graph<V> {
      * @return the graph
      */
     public abstract Graph<V> removeEdge(V vertexData1, V vertexData2);
-    
-    /**
-     * Checks if a path exists in the graph.
-     * 
-     * @param pathNodes the path expressed as a list of vertices
-     * 
-     * @return true or false according to if the path exists
-     */
-    public boolean pathExists(List<Vertex<V>> pathNodes) { 
-        // For each node in the path
-        for (int i = 0; i < pathNodes.size(); i++) { 
-            Vertex<V> currentNode = (Vertex<V>) pathNodes.get(i);
-            // Check if the node actually exist in the current graph
-            if (!vertices.contains(currentNode))
-                return false;
-            // If it is not the last node in the path
-            if (i < pathNodes.size()-1) { 
-                // There has to be a connection with the next node in the path
-                Vertex<V> nextNode = (Vertex<V>) pathNodes.get(i+1);
-                if (!currentNode.hasEdgeWith(nextNode))
-                    return false;
-            }
-        }
-        return true;
-    }
-    
-    /**
-     * Checks if a path exists in the graph.
-     * 
-     * @param path the path object
-     * 
-     * @return true or false
-     */
-    public boolean pathExists(Path<Vertex<V>> path) { 
-        List<Vertex<V>> pathNodes = new LinkedList(path.getPath());
-        return pathExists(pathNodes);
-    }
     
     /**
      * Removes all vertices (and the corresponding edges) from the graph.
