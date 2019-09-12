@@ -4,7 +4,7 @@
 # graphima
 Yet another Java graph-theory library
 
-Released: September 4, 2019</p>
+<p>Released: September 11, 2019 (v1.0.0)</p>
 
 Written by [Vasileios Nikakis](mailto:vnikakis@sitienda.com)
 
